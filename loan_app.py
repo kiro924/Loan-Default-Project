@@ -131,29 +131,29 @@ if pages=="📊 Analysis Page":
         ))
                     
         else:
-    os.chdir(r'D:\Final Project')
-    pd.set_option('display.max_columns',None)
-    df=pd.read_csv('cleaned data.csv')
-    x=df.drop('Status', axis=1)
-    y=df['Status']
-    st.title('🤖 Loan Default Prediction Model')
-    pipeline_pre=joblib.load('pipeline_pre')
-    pipeline=joblib.load('Loan Prediction ML model')
-    inputs=joblib.load('inputs')
-    st.subheader("📋 Enter Applicant Informations")
+            os.chdir(r'D:\Final Project')
+            pd.set_option('display.max_columns',None)
+            df=pd.read_csv('cleaned data.csv')
+            x=df.drop('Status', axis=1)
+            y=df['Status']
+            st.title('🤖 Loan Default Prediction Model')
+            pipeline_pre=joblib.load('pipeline_pre')
+            pipeline=joblib.load('Loan Prediction ML model')
+            inputs=joblib.load('inputs')
+            st.subheader("📋 Enter Applicant Informations")
 
-    user_input={
-        'loan_limit': st.selectbox('loan_limit', x['loan_limit'].unique()),
-        'Gender': st.selectbox('Gender', x['Gender'].unique()),
-        'approv_in_adv': st.selectbox('approv_in_adv', x['approv_in_adv'].unique()),
-        'loan_type': st.selectbox('loan_type', x['loan_type'].unique()),
-        'loan_purpose': st.selectbox('loan_purpose', x['loan_purpose'].unique()),
-        'Credit_Worthiness': st.selectbox('Credit_Worthiness', x['Credit_Worthiness'].unique()),
-        'open_credit': st.selectbox('open_credit', x['open_credit'].unique()),
-        'business_or_commercial': st.selectbox('business_or_commercial', x['business_or_commercial'].unique()),
-        'loan_amount': st.slider('loan_amount', min_value=int(x['loan_amount'].min()),
-                                max_value=int(x['loan_amount'].max()), value=6000, step=300),
-        'rate_of_interest': st.slider('rate_of_interest', min_value=float(x['rate_of_interest'].min()),
+user_input={
+    'loan_limit': st.selectbox('loan_limit', x['loan_limit'].unique()),
+    'Gender': st.selectbox('Gender', x['Gender'].unique()),
+    'approv_in_adv': st.selectbox('approv_in_adv', x['approv_in_adv'].unique()),
+    'loan_type': st.selectbox('loan_type', x['loan_type'].unique()),
+    'loan_purpose': st.selectbox('loan_purpose', x['loan_purpose'].unique()),
+    'Credit_Worthiness': st.selectbox('Credit_Worthiness', x['Credit_Worthiness'].unique()),
+    'open_credit': st.selectbox('open_credit', x['open_credit'].unique()),
+    'business_or_commercial': st.selectbox('business_or_commercial', x['business_or_commercial'].unique()),
+    'loan_amount': st.slider('loan_amount', min_value=int(x['loan_amount'].min()),
+                            max_value=int(x['loan_amount'].max()), value=6000, step=300),
+    'rate_of_interest': st.slider('rate_of_interest', min_value=float(x['rate_of_interest'].min()),
                                 max_value=float(x['rate_of_interest'].max()), value=0.5, step=0.5),
         'Interest_rate_spread': st.slider('Interest_rate_spread', min_value=float(x['Interest_rate_spread'].min()),
                                 max_value=float(x['Interest_rate_spread'].max()), value=0.5, step=0.5),

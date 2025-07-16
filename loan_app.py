@@ -82,7 +82,7 @@ if pages=="📊 Analysis Page":
         # st.plotly_chart(px.pie(cat, names=select_col, values='percentage',
         #                       title=f'loan status distribution by {select_col}'.title(),
         #                       color_discrete_sequence=px.colors.qualitative.Dark2))
-        st.write("Unique values in Status column:", filtered_df['Status'].unique()
+        st.write("Unique values in Status column:", filtered_df['Status'].unique())
         series = filtered_df.groupby([select_col, 'Status']).size()
         total = series.groupby(level=0).transform('sum')
         cat = (series / total * 100).reset_index(name='percentage')

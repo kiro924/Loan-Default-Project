@@ -10,16 +10,16 @@ st.set_page_config(page_title='Loan Prediction App', layout='wide')
 
 pd.set_option('display.max_columns',None)
 def load_data():
-current_dir = os.path.dirname(__file__)
-zip_path = os.path.join(current_dir, 'cleaned data.zip')
-csv_name = 'cleaned data.csv'
+    current_dir = os.path.dirname(__file__)
+    zip_path = os.path.join(current_dir, 'cleaned data.zip')
+    csv_name = 'cleaned data.csv'
 
 # Extract CSV from zip if not already extracted
 with zipfile.ZipFile(zip_path, 'r') as zip_ref:
-zip_ref.extract(csv_name, current_dir)
-
-file_path = os.path.join(current_dir, csv_name)
-return pd.read_csv(file_path)
+    zip_ref.extract(csv_name, current_dir)
+    
+    file_path = os.path.join(current_dir, csv_name)
+    return pd.read_csv(file_path)
 
 df = load_data()
 

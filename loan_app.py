@@ -82,26 +82,31 @@ if pages=="📊 Analysis Page":
         # st.plotly_chart(px.pie(cat, names=select_col, values='percentage',
         #                       title=f'loan status distribution by {select_col}'.title(),
         #                       color_discrete_sequence=px.colors.qualitative.Dark2))
-        series = (filtered_df.groupby([select_col, 'Status']).size().groupby(level=0).apply(lambda x: x / x.sum() * 100))
-        series.name = 'percentage'
-        if isinstance(series.index, pd.MultiIndex):
-            temp_names = [f'level_{i}' for i in range(series.index.nlevels)]
-            series.index = series.index.set_names(temp_names)
-            cat = series.reset_index()
-            # Rename to proper names
-            cat = cat.rename(columns={temp_names[0]: select_col, temp_names[1]: 'Status'})
-        else:
-            cat = series.reset_index().rename(columns={series.index.name: select_col})
-        st.plotly_chart(px.bar(cat,x=select_col,y='percentage',color='Status',barmode='group',
-                                title=f'Loan Status Distribution by {select_col.title()}',
-                                labels={'percentage': 'Percentage (%)'},
-                                color_discrete_sequence=px.colors.qualitative.Dark2
-    ))
-    
-        st.plotly_chart(px.pie(cat,names=select_col,values='percentage',
-                           title=f'Loan Status Distribution by {select_col.title()}',
-                           color_discrete_sequence=px.colors.qualitative.Dark2
-    ))
+        series = filtered_df.groupby([select_col, 'Status']).size()
+        total = series.groupby(level=0).transform('sum')
+        cat = (series / total * 100).reset_index(name='percentage')
+
+# Step 2: Plot bar chart
+        st.plotly_chart(px.bar(
+            cat,
+            x=select_col,
+            y='percentage',
+            color='Status',
+            barmode='group',
+            title=f'Loan Status Distribution by {select_col.title()}',
+            labels={'percentage': 'Percentage (%)'},
+            color_discrete_sequence=px.colors.qualitative.Dark2
+        ))
+
+        pie_df = cat.groupby(select_col)['percentage'].sum().reset_index()
+
+        st.plotly_chart(px.pie(
+            pie_df,
+            names=select_col,
+            values='percentage',
+            title=f'Loan Status Distribution by {select_col.title()} (Pie)',
+            color_discrete_sequence=px.colors.qualitative.Dark2
+        ))
 
         st.subheader("🔀 Multivariate Analysis")
         if pd.api.types.is_object_dtype(filtered_df[select_col]):

@@ -24,8 +24,9 @@ def load_data():
 # Load the DataFrame
 df = load_data()
 
-pages=st.sidebar.selectbox('Select Page', ["📊 Analysis Page", "🤖 ML Prediction"])
+pages=st.sidebar.selectbox('Select Page' ["📊 Analysis Page", "🤖 ML Prediction"])
 if pages=="📊 Analysis Page":
+    col1,col2=st.columns([2,2])
     st.title('📊 Exploratory Data Analysis - Loan Default')
     st.sidebar.header('🔍 Filter Options')
     loan_purpose_filter=st.sidebar.multiselect('loan_purpose', df['loan_purpose'].unique(),default=df['loan_purpose'].unique())
@@ -43,8 +44,8 @@ if pages=="📊 Analysis Page":
     select_col=st.selectbox("Select a column for univariate analysis:", filtered_df.columns)
     
     if pd.api.types.is_numeric_dtype(filtered_df[select_col]):
-        st.plotly_chart(px.histogram(filtered_df, x=select_col, nbins=50))
-        st.plotly_chart(px.box(filtered_df, x=select_col))
+        col1.plotly_chart(px.histogram(filtered_df, x=select_col, nbins=50, text_auto = True))
+        col2.plotly_chart(px.box(filtered_df, x=select_col))
         st.write(filtered_df[select_col].describe())
         st.write("🔼 Highest 5 Values:", filtered_df[select_col].nlargest(5))
         st.write("🔽 Lowest 5 Values:", filtered_df[select_col].nsmallest(5))

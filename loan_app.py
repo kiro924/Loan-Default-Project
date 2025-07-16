@@ -24,7 +24,7 @@ def load_data():
 # Load the DataFrame
 df = load_data()
 
-pages=st.sidebar.selectbox('Select Page' ["📊 Analysis Page", "🤖 ML Prediction"])
+pages=st.sidebar.selectbox('Select Page', ["📊 Analysis Page", "🤖 ML Prediction"])
 if pages=="📊 Analysis Page":
     col1,col2=st.columns([2,2])
     st.title('📊 Exploratory Data Analysis - Loan Default')

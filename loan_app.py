@@ -3,11 +3,9 @@ from sklearn.ensemble import RandomForestClassifier
 import streamlit as st
 import pandas as pd
 import joblib
-import os
 
 st.set_page_config(page_title='Loan Prediction App', layout='wide')
 
-os.chdir(r'D:\Final Project')
 pd.set_option('display.max_columns',None)
 df=pd.read_csv('cleaned data.csv')
 

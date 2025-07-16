@@ -9,7 +9,7 @@ st.set_page_config(page_title='Loan Prediction App', layout='wide')
 
 pd.set_option('display.max_columns',None)
 def load_data():
-    current_dir = os.path.dirname(Final Project)
+    current_dir = os.path.dirname(__file__)
     file_path = os.path.join(current_dir, 'cleaned data.csv')
     return pd.read_csv(file_path)
 

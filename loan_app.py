@@ -3,6 +3,7 @@ from sklearn.ensemble import RandomForestClassifier
 import streamlit as st
 import pandas as pd
 import joblib
+import zipfile
 import os
 
 st.set_page_config(page_title='Loan Prediction App', layout='wide')

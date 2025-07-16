@@ -5,7 +5,6 @@ import pandas as pd
 import zipfile
 import joblib
 import os
-os.chdir("D:\Final Project")
 st.set_page_config(
 page_title="Loan Default Analysis Dashboard",
 page_icon="📊",

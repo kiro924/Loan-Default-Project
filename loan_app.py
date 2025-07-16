@@ -19,7 +19,7 @@ with zipfile.ZipFile(zip_path, 'r') as zip_ref:
     zip_ref.extract(csv_name, current_dir)
     
     file_path = os.path.join(current_dir, csv_name)
-    return pd.read_csv(file_path)
+return pd.read_csv(file_path)
 
 df = load_data()
 

@@ -68,8 +68,13 @@ if pages=='Home Page':
 """, unsafe_allow_html=True)
 
     st.markdown('<div class="title">Loan Default Analysis Overview</div>', unsafe_allow_html=True)
-    st.image("dataset-cover.JPG", use_container_width=True)
+    image_path = "dataset-cover.JPG"
 
+    if os.path.exists(image_path):
+        image = Image.open(image_path)
+        st.image(image, caption="📊 Dataset Cover", use_container_width=True)
+    else:
+        st.warning("⚠️ Image 'dataset-cover.JPG' not found. Please upload or add it to your project folder.")
     def load_data():
         current_dir = os.path.dirname(__file__)
         zip_path = os.path.join(current_dir, 'cleaned data.zip')

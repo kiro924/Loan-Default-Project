@@ -68,7 +68,7 @@ if pages=='Home Page':
 """, unsafe_allow_html=True)
 
     st.markdown('<div class="title">Loan Default Analysis Overview</div>', unsafe_allow_html=True)
-    st.image("dataset-cover.JPG")
+    st.image("D:\Final Project/dataset-cover.JPG")
 
     def load_data():
         current_dir = os.path.dirname(__file__)

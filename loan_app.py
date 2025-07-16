@@ -7,7 +7,11 @@ import joblib
 st.set_page_config(page_title='Loan Prediction App', layout='wide')
 
 pd.set_option('display.max_columns',None)
-df=pd.read_csv('cleaned data.csv')
+@st.cache_data
+def load_data():
+    return pd.read_csv('cleaned data.csv')
+
+df = load_data()
 
 pages=st.sidebar.selectbox('Select Page', ["📊 Analysis Page", "🤖 ML Prediction"])
 if pages=="📊 Analysis Page":

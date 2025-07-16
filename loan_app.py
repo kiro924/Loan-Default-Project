@@ -26,7 +26,7 @@ df = load_data()
 
 pages=st.sidebar.selectbox('Select Page', ["📊 Analysis Page", "🤖 ML Prediction"])
 if pages=="📊 Analysis Page":
-    col1,col2=st.columns([10,10])
+    col1,col2=st.columns([5,5])
     st.title('📊 Exploratory Data Analysis - Loan Default')
     st.sidebar.header('🔍 Filter Options')
     loan_purpose_filter=st.sidebar.multiselect('loan_purpose', df['loan_purpose'].unique(),default=df['loan_purpose'].unique())

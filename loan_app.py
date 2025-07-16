@@ -184,14 +184,14 @@ user_input={
         'dtir1': st.slider('dtir1', min_value=int(x['dtir1'].min()),max_value=int(x['dtir1'].max()), value=10, step=10),
     }
 
-    if st.button('Predict Loan Default'):
-        inputs_df=pd.DataFrame([user_input], columns=inputs)
-        # for col in inputs_df.columns:
-        #     if col in df.columns:
-        #         inputs_df[col] = inputs_df[col].astype(df[col].dtype)
-        st.write("Data types of inputs_df:", inputs_df.dtypes)
-        st.write("Sample input values:", inputs_df.head())
-        prediction=pipeline.predict(inputs_df)[0]
-        st.success("✅ Loan Defaulted" if prediction==0 else "❌ Loan Rejected")
-
+        if st.button('Predict Loan Default'):
+            inputs_df=pd.DataFrame([user_input], columns=inputs)
+            # for col in inputs_df.columns:
+            #     if col in df.columns:
+            #         inputs_df[col] = inputs_df[col].astype(df[col].dtype)
+            st.write("Data types of inputs_df:", inputs_df.dtypes)
+            st.write("Sample input values:", inputs_df.head())
+            prediction=pipeline.predict(inputs_df)[0]
+            st.success("✅ Loan Defaulted" if prediction==0 else "❌ Loan Rejected")
     
+        

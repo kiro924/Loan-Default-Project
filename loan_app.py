@@ -115,7 +115,7 @@ if pages=="📊 Analysis Page":
     if pd.api.types.is_object_dtype(filtered_df[select_col]):
         cat1=df.groupby([select_col,'Status'])[['income']].median().reset_index().sort_values(
             ascending=False, by='income')
-        cat1['label'] = cat1[select_col].astype(str) + ' - ' + cat1['Status']
+        cat1['label'] = cat1[select_col].astype(str) + ' - ' + cat1['Status'].astype(str)
     
         st.plotly_chart(px.bar(cat1, x=select_col, y='income', color='Status', barmode='group',
                        title=f'average income by {select_col} and status'.title()))

@@ -26,7 +26,6 @@ df = load_data()
 
 pages=st.sidebar.selectbox('Select Page', ["📊 Analysis Page", "🤖 ML Prediction"])
 if pages=="📊 Analysis Page":
-    col1,col2=st.columns([5,5])
     st.title('📊 Exploratory Data Analysis - Loan Default')
     st.sidebar.header('🔍 Filter Options')
     loan_purpose_filter=st.sidebar.multiselect('loan_purpose', df['loan_purpose'].unique(),default=df['loan_purpose'].unique())
@@ -44,6 +43,7 @@ if pages=="📊 Analysis Page":
     select_col=st.selectbox("Select a column for univariate analysis:", filtered_df.columns)
     
     if pd.api.types.is_numeric_dtype(filtered_df[select_col]):
+        col1,col2=st.columns([2,2])
         col1.plotly_chart(px.histogram(filtered_df, x=select_col, nbins=50, text_auto = True))
         col2.plotly_chart(px.box(filtered_df, x=select_col))
         st.write(filtered_df[select_col].describe())
@@ -58,6 +58,7 @@ if pages=="📊 Analysis Page":
         st.write(f"🚨 Outliers count: {outliers.shape[0]}")
     
     else:
+        col1,col2=st.columns([2,2])
         cat_df=filtered_df[select_col].value_counts().reset_index()
         cat_df.columns=[select_col, 'Count']
         col1.plotly_chart(px.bar(cat_df, x=select_col, y='Count'))
@@ -67,11 +68,13 @@ if pages=="📊 Analysis Page":
     
     st.subheader("🔁 Bivariate Analysis")
     if pd.api.types.is_numeric_dtype(filtered_df[select_col]):
+        col1,col2=st.columns([2,2])
         col1.plotly_chart(px.histogram(filtered_df, x=select_col, color='Status', nbins=50, barmode='overlay'))
         col2.plotly_chart(px.box(filtered_df, x='Status', y=select_col))
         st.write(filtered_df.groupby(select_col)['Status'].describe())
     
     else:
+        col1,col2=st.columns([2,2])
         # cat=filtered_df[select_col].value_counts().unstack().mul(100)
         # cat_long=cat.reset_index().mlte(id_vars=select_col, var_name='Status', value_name='percentage')
         # series = (df.groupby([select_col, 'Status']).size().groupby(level=0).apply(lambda x: x / x.sum() * 100))
@@ -114,6 +117,7 @@ if pages=="📊 Analysis Page":
         
     st.subheader("🔀 Multivariate Analysis")
     if pd.api.types.is_object_dtype(filtered_df[select_col]):
+        col1,col2=st.columns([2,2])
         cat1=df.groupby([select_col,'Status'])[['income']].median().reset_index().sort_values(
             ascending=False, by='income')
         cat1['label'] = cat1[select_col].astype(str) + ' - ' + cat1['Status'].astype(str)

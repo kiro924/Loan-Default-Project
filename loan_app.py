@@ -3,13 +3,15 @@ from sklearn.ensemble import RandomForestClassifier
 import streamlit as st
 import pandas as pd
 import joblib
+import os
 
 st.set_page_config(page_title='Loan Prediction App', layout='wide')
 
 pd.set_option('display.max_columns',None)
-@st.cache_data
 def load_data():
-    return pd.read_csv('cleaned data.csv')
+    current_dir = os.path.dirname("D:\Final Project")
+    file_path = os.path.join(current_dir, 'cleaned data.csv')
+    return pd.read_csv(file_path)
 
 df = load_data()
 

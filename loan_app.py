@@ -114,14 +114,20 @@ if pages=="📊 Analysis Page":
         if pd.api.types.is_object_dtype(filtered_df[select_col]):
             cat1=df.groupby([select_col,'Status'])[['income']].median().reset_index().sort_values(
                 ascending=False, by='income')
+            cat1['label'] = cat1[select_col].astype(str) + ' - ' + cat1['Status_label']
 
             st.plotly_chart(px.bar(cat1, x=select_col, y='income', color='Status', barmode='group',
                            title=f'average income by {select_col} and status'.title()))
             
-            st.plotly_chart(px.pie(cat1, names=select_col, values='income', color='Status',
-                           title=f'average income by {select_col} and status'.title()))
-            
-else:
+            st.plotly_chart(px.pie(
+            cat1,
+            names='label',
+            values='income',
+            title=f'Average Income by {select_col.title()} and Status',
+            color_discrete_sequence=px.colors.qualitative.Dark2
+        ))
+                    
+        else:
     os.chdir(r'D:\Final Project')
     pd.set_option('display.max_columns',None)
     df=pd.read_csv('cleaned data.csv')

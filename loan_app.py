@@ -296,6 +296,20 @@ elif pages=="📊 Analysis Page":
             
             col2.plotly_chart(px.pie(cat1, names=select_col, values='income', color='Status',
                            title=f'average income by {select_col} and status'.title()))
+
+        # 4️⃣ DOWNLOAD FILTERED DATA
+# ==============================
+
+        st.subheader("⬇️ Download Filtered Data")
+        
+        csv = filtered_df.to_csv(index=False)
+        
+        st.download_button(
+            label="📥 Download as CSV",
+            data=csv,
+            file_name="filtered_loan_data.csv",
+            mime="text/csv"
+        )
             
 else:
     os.chdir(r'D:\Final Project')

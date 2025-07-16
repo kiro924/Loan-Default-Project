@@ -118,13 +118,16 @@ if pages=="📊 Analysis Page":
 
             st.plotly_chart(px.bar(cat1, x=select_col, y='income', color='Status', barmode='group',
                            title=f'average income by {select_col} and status'.title()))
-            
+            dark2_colors = px.colors.qualitative.Dark2
+            status_labels = ['Rejected', 'Approved']  # adjust based on your actual values
+            color_map = dict(zip(status_labels, dark2_colors[:len(status_labels)]))
+
             st.plotly_chart(px.pie(
             cat1,
             names='label',
             values='income',
             title=f'Average Income by {select_col.title()} and Status',
-            color_discrete_sequence=px.colors.qualitative.Dark2
+            color_discrete_map=color_map
         ))
                     
         else:

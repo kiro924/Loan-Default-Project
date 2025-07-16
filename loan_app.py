@@ -60,15 +60,15 @@ if pages=="📊 Analysis Page":
     else:
         cat_df=filtered_df[select_col].value_counts().reset_index()
         cat_df.columns=[select_col, 'Count']
-        st.plotly_chart(px.bar(cat_df, x=select_col, y='Count'))
-        st.plotly_chart(px.pie(cat_df, names=select_col, values='Count'))
+        col1.plotly_chart(px.bar(cat_df, x=select_col, y='Count'))
+        col2.plotly_chart(px.pie(cat_df, names=select_col, values='Count'))
         st.write(filtered_df[select_col].value_counts())
         st.write((filtered_df[select_col].value_counts(normalize=True)*100).round(2))
     
     st.subheader("🔁 Bivariate Analysis")
     if pd.api.types.is_numeric_dtype(filtered_df[select_col]):
-        st.plotly_chart(px.histogram(filtered_df, x=select_col, color='Status', nbins=50, barmode='overlay'))
-        st.plotly_chart(px.box(filtered_df, x='Status', y=select_col))
+        col1.plotly_chart(px.histogram(filtered_df, x=select_col, color='Status', nbins=50, barmode='overlay'))
+        col2.plotly_chart(px.box(filtered_df, x='Status', y=select_col))
         st.write(filtered_df.groupby(select_col)['Status'].describe())
     
     else:
@@ -90,7 +90,7 @@ if pages=="📊 Analysis Page":
         cat = (series / total * 100).reset_index(name='percentage')
         
         # Step 2: Plot bar chart
-        st.plotly_chart(px.bar(
+        col1.plotly_chart(px.bar(
             cat,
             x=select_col,
             y='percentage',
@@ -104,7 +104,7 @@ if pages=="📊 Analysis Page":
         cat['label'] = cat[select_col].astype(str) + ' - ' + cat['Status'].astype(str)
         
         # Plot pie chart
-        st.plotly_chart(px.pie(
+        col2.plotly_chart(px.pie(
             cat,
             names='label',
             values='percentage',
@@ -118,13 +118,13 @@ if pages=="📊 Analysis Page":
             ascending=False, by='income')
         cat1['label'] = cat1[select_col].astype(str) + ' - ' + cat1['Status'].astype(str)
     
-        st.plotly_chart(px.bar(cat1, x=select_col, y='income', color='Status', barmode='group',
+        col1.plotly_chart(px.bar(cat1, x=select_col, y='income', color='Status', barmode='group',
                        title=f'average income by {select_col} and status'.title()))
         dark2_colors = px.colors.qualitative.Dark2
         status_labels = ['1', '0']  
         color_map = dict(zip(status_labels, dark2_colors[:len(status_labels)]))
     
-        st.plotly_chart(px.pie(
+        col2.plotly_chart(px.pie(
         cat1,
         names='label',
         values='income',

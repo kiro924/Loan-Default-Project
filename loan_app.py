@@ -242,9 +242,9 @@ elif pages=="📊 Analysis Page":
         cat_df=filtered_df[select_col].value_counts().reset_index()
         cat_df.columns=[select_col, 'Count']
         col1.plotly_chart(px.bar(cat_df, x=select_col, y='Count', text_auto=True, title=f'Count of each {select_col}'.title(),
-                                color_discrete_sequence=px.colors.qualitative.Dark24))
+                                color_discrete_sequence=px.colors.qualitative.Dark2))
         col2.plotly_chart(px.pie(cat_df, names=select_col, values='Count', title=f'percentage of each {select_col}'.title(),
-                                color_discrete_sequence=px.colors.qualitative.Dark24))
+                                color_discrete_sequence=px.colors.qualitative.Dark2))
         with st.expander(f"📊 Frequency Distribution for {select_col.title()}"):
             st.write("🔢 Absolute Counts:")
             st.write(filtered_df[select_col].value_counts())

@@ -115,12 +115,12 @@ if pages=="📊 Analysis Page":
     if pd.api.types.is_object_dtype(filtered_df[select_col]):
         cat1=df.groupby([select_col,'Status'])[['income']].median().reset_index().sort_values(
             ascending=False, by='income')
-        cat1['label'] = cat1[select_col].astype(str) + ' - ' + cat1['Status_label']
+        cat1['label'] = cat1[select_col].astype(str) + ' - ' + cat1['Status']
     
         st.plotly_chart(px.bar(cat1, x=select_col, y='income', color='Status', barmode='group',
                        title=f'average income by {select_col} and status'.title()))
         dark2_colors = px.colors.qualitative.Dark2
-        status_labels = ['Rejected', 'Approved']  # adjust based on your actual values
+        status_labels = ['1', '0']  
         color_map = dict(zip(status_labels, dark2_colors[:len(status_labels)]))
     
         st.plotly_chart(px.pie(

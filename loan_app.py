@@ -99,13 +99,14 @@ if pages=="📊 Analysis Page":
             color_discrete_sequence=px.colors.qualitative.Dark2
         ))
 
-        pie_df = cat.groupby(select_col)['percentage'].sum().reset_index()
+        cat['label'] = cat[select_col].astype(str) + ' - ' + cat['Status'].astype(str)
 
+# Plot pie chart
         st.plotly_chart(px.pie(
-            pie_df,
-            names=select_col,
+            cat,
+            names='label',
             values='percentage',
-            title=f'Loan Status Distribution by {select_col.title()} (Pie)',
+            title=f'Loan Status Distribution by {select_col.title()} and Status',
             color_discrete_sequence=px.colors.qualitative.Dark2
         ))
 

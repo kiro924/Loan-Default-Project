@@ -222,8 +222,9 @@ elif pages=="📊 Analysis Page":
     if pd.api.types.is_numeric_dtype(filtered_df[select_col]):
         col1,col2=st.columns(2)
         col1.plotly_chart(px.histogram(filtered_df, x=select_col, nbins=50, barmode='group',
-                                       title=f'histogram distribution of {select_col}'.title()))
-        col2.plotly_chart(px.box(filtered_df, x=select_col, title=f'Box Plot of {select_col}'.title()))
+                                       title=f'histogram distribution of {select_col}'.title(),
+                                       color=px.color.qualitative.Dark24))
+        col2.plotly_chart(px.box(filtered_df, x=select_col, title=f'Box Plot of {select_col}'.title(), color=px.color.qualitative.Dark24))
         with st.expander(f"📊 Detailed Statistics for {select_col.title()}"):
             st.write(filtered_df[select_col].describe())
             st.write("🔼 Highest 5 Values:", filtered_df[select_col].nlargest(5))
@@ -240,8 +241,10 @@ elif pages=="📊 Analysis Page":
         col1,col2=st.columns([2,2])
         cat_df=filtered_df[select_col].value_counts().reset_index()
         cat_df.columns=[select_col, 'Count']
-        col1.plotly_chart(px.bar(cat_df, x=select_col, y='Count', text_auto=True, title=f'Count of each {select_col}'.title()))
-        col2.plotly_chart(px.pie(cat_df, names=select_col, values='Count', title=f'percentage of each {select_col}'.title()))
+        col1.plotly_chart(px.bar(cat_df, x=select_col, y='Count', text_auto=True, title=f'Count of each {select_col}'.title(),
+                                color=px.color.qualitative.Dark24))
+        col2.plotly_chart(px.pie(cat_df, names=select_col, values='Count', title=f'percentage of each {select_col}'.title(),
+                                color=px.color.qualitative.Dark24))
         with st.expander(f"📊 Frequency Distribution for {select_col.title()}"):
             st.write("🔢 Absolute Counts:")
             st.write(filtered_df[select_col].value_counts())

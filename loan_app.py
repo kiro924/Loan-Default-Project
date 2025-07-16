@@ -31,12 +31,12 @@ if pages=="📊 Analysis Page":
     loan_purpose_filter=st.sidebar.multiselect('loan_purpose', df['loan_purpose'].unique(),default=df['loan_purpose'].unique())
     region_filter=st.sidebar.multiselect('Region', df['Region'].unique(), default=df['Region'].unique())
     status_options = df['Status'].dropna().unique().tolist()
-    status_filter = st.sidebar.multiselect('Status', options=status_options, default=status_options)
+    # status_filter = st.sidebar.multiselect('Status', options=status_options, default=status_options)
     
     filtered_df=df[
     (df['loan_purpose'].isin(loan_purpose_filter))&
-    (df['Region'].isin(region_filter))&
-    (df['Status'].isin(status_filter))
+    (df['Region'].isin(region_filter))
+    # (df['Status'].isin(status_filter))
     ]
     
     st.subheader("📈 Univariate Analysis")

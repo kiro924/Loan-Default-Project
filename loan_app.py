@@ -42,74 +42,74 @@ if pages=="📊 Analysis Page":
     select_col=st.selectbox("Select a column for univariate analysis:", filtered_df.columns)
     
     if pd.api.types.is_numeric_dtype(filtered_df[select_col]):
-    st.plotly_chart(px.histogram(filtered_df, x=select_col, nbins=50))
-    st.plotly_chart(px.box(filtered_df, x=select_col))
-    st.write(filtered_df[select_col].describe())
-    st.write("🔼 Highest 5 Values:", filtered_df[select_col].nlargest(5))
-    st.write("🔽 Lowest 5 Values:", filtered_df[select_col].nsmallest(5))
-    q1=filtered_df[select_col].quantile(.25)
-    q3=filtered_df[select_col].quantile(.75)
-    iqr=q3 - q1
-    upper_bound=q3 + 1.5 * iqr
-    lower_bound=q1 - 1.5 * iqr
-    outliers = filtered_df[(filtered_df[select_col] > upper_bound) | (filtered_df[select_col] < lower_bound)]
-    st.write(f"🚨 Outliers count: {outliers.shape[0]}")
+        st.plotly_chart(px.histogram(filtered_df, x=select_col, nbins=50))
+        st.plotly_chart(px.box(filtered_df, x=select_col))
+        st.write(filtered_df[select_col].describe())
+        st.write("🔼 Highest 5 Values:", filtered_df[select_col].nlargest(5))
+        st.write("🔽 Lowest 5 Values:", filtered_df[select_col].nsmallest(5))
+        q1=filtered_df[select_col].quantile(.25)
+        q3=filtered_df[select_col].quantile(.75)
+        iqr=q3 - q1
+        upper_bound=q3 + 1.5 * iqr
+        lower_bound=q1 - 1.5 * iqr
+        outliers = filtered_df[(filtered_df[select_col] > upper_bound) | (filtered_df[select_col] < lower_bound)]
+        st.write(f"🚨 Outliers count: {outliers.shape[0]}")
     
     else:
-    cat_df=filtered_df[select_col].value_counts().reset_index()
-    cat_df.columns=[select_col, 'Count']
-    st.plotly_chart(px.bar(cat_df, x=select_col, y='Count'))
-    st.plotly_chart(px.pie(cat_df, names=select_col, values='Count'))
-    st.write(filtered_df[select_col].value_counts())
-    st.write((filtered_df[select_col].value_counts(normalize=True)*100).round(2))
+        cat_df=filtered_df[select_col].value_counts().reset_index()
+        cat_df.columns=[select_col, 'Count']
+        st.plotly_chart(px.bar(cat_df, x=select_col, y='Count'))
+        st.plotly_chart(px.pie(cat_df, names=select_col, values='Count'))
+        st.write(filtered_df[select_col].value_counts())
+        st.write((filtered_df[select_col].value_counts(normalize=True)*100).round(2))
     
     st.subheader("🔁 Bivariate Analysis")
     if pd.api.types.is_numeric_dtype(filtered_df[select_col]):
-    st.plotly_chart(px.histogram(filtered_df, x=select_col, color='Status', nbins=50, barmode='overlay'))
-    st.plotly_chart(px.box(filtered_df, x='Status', y=select_col))
-    st.write(filtered_df.groupby(select_col)['Status'].describe())
+        st.plotly_chart(px.histogram(filtered_df, x=select_col, color='Status', nbins=50, barmode='overlay'))
+        st.plotly_chart(px.box(filtered_df, x='Status', y=select_col))
+        st.write(filtered_df.groupby(select_col)['Status'].describe())
     
     else:
-    # cat=filtered_df[select_col].value_counts().unstack().mul(100)
-    # cat_long=cat.reset_index().mlte(id_vars=select_col, var_name='Status', value_name='percentage')
-    # series = (df.groupby([select_col, 'Status']).size().groupby(level=0).apply(lambda x: x / x.sum() * 100))
-    # cat = series.rename('percentage').reset_index(drop=False, allow_duplicates=True)
-    
-    # st.plotly_chart(px.bar(cat, x=select_col, y='percentage', barmode='group',
-    #                       title=f'loan status distribution by {select_col}'.title(),
-    #                       color_discrete_sequence=px.colors.qualitative.Dark2))
-    
-    # st.plotly_chart(px.pie(cat, names=select_col, values='percentage',
-    #                       title=f'loan status distribution by {select_col}'.title(),
-    #                       color_discrete_sequence=px.colors.qualitative.Dark2))
-    st.write("Unique values in Status column:", filtered_df['Status'].unique())
-    series = filtered_df.groupby([select_col, 'Status']).size()
-    total = series.groupby(level=0).transform('sum')
-    cat = (series / total * 100).reset_index(name='percentage')
-    
-    # Step 2: Plot bar chart
-    st.plotly_chart(px.bar(
-        cat,
-        x=select_col,
-        y='percentage',
-        color='Status',
-        barmode='group',
-        title=f'Loan Status Distribution by {select_col.title()}',
-        labels={'percentage': 'Percentage (%)'},
-        color_discrete_sequence=px.colors.qualitative.Dark2
-    ))
-    
-    cat['label'] = cat[select_col].astype(str) + ' - ' + cat['Status'].astype(str)
-    
-    # Plot pie chart
-    st.plotly_chart(px.pie(
-        cat,
-        names='label',
-        values='percentage',
-        title=f'Loan Status Distribution by {select_col.title()} and Status',
-        color_discrete_sequence=px.colors.qualitative.Dark2
-    ))
-    
+        # cat=filtered_df[select_col].value_counts().unstack().mul(100)
+        # cat_long=cat.reset_index().mlte(id_vars=select_col, var_name='Status', value_name='percentage')
+        # series = (df.groupby([select_col, 'Status']).size().groupby(level=0).apply(lambda x: x / x.sum() * 100))
+        # cat = series.rename('percentage').reset_index(drop=False, allow_duplicates=True)
+        
+        # st.plotly_chart(px.bar(cat, x=select_col, y='percentage', barmode='group',
+        #                       title=f'loan status distribution by {select_col}'.title(),
+        #                       color_discrete_sequence=px.colors.qualitative.Dark2))
+        
+        # st.plotly_chart(px.pie(cat, names=select_col, values='percentage',
+        #                       title=f'loan status distribution by {select_col}'.title(),
+        #                       color_discrete_sequence=px.colors.qualitative.Dark2))
+        st.write("Unique values in Status column:", filtered_df['Status'].unique())
+        series = filtered_df.groupby([select_col, 'Status']).size()
+        total = series.groupby(level=0).transform('sum')
+        cat = (series / total * 100).reset_index(name='percentage')
+        
+        # Step 2: Plot bar chart
+        st.plotly_chart(px.bar(
+            cat,
+            x=select_col,
+            y='percentage',
+            color='Status',
+            barmode='group',
+            title=f'Loan Status Distribution by {select_col.title()}',
+            labels={'percentage': 'Percentage (%)'},
+            color_discrete_sequence=px.colors.qualitative.Dark2
+        ))
+        
+        cat['label'] = cat[select_col].astype(str) + ' - ' + cat['Status'].astype(str)
+        
+        # Plot pie chart
+        st.plotly_chart(px.pie(
+            cat,
+            names='label',
+            values='percentage',
+            title=f'Loan Status Distribution by {select_col.title()} and Status',
+            color_discrete_sequence=px.colors.qualitative.Dark2
+        ))
+        
     st.subheader("🔀 Multivariate Analysis")
     if pd.api.types.is_object_dtype(filtered_df[select_col]):
         cat1=df.groupby([select_col,'Status'])[['income']].median().reset_index().sort_values(

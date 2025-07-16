@@ -46,16 +46,29 @@ if pages=="📊 Analysis Page":
         col1,col2=st.columns([2,2])
         col1.plotly_chart(px.histogram(filtered_df, x=select_col, nbins=50, text_auto = True))
         col2.plotly_chart(px.box(filtered_df, x=select_col))
-        st.write(filtered_df[select_col].describe())
-        st.write("🔼 Highest 5 Values:", filtered_df[select_col].nlargest(5))
-        st.write("🔽 Lowest 5 Values:", filtered_df[select_col].nsmallest(5))
-        q1=filtered_df[select_col].quantile(.25)
-        q3=filtered_df[select_col].quantile(.75)
-        iqr=q3 - q1
-        upper_bound=q3 + 1.5 * iqr
-        lower_bound=q1 - 1.5 * iqr
-        outliers = filtered_df[(filtered_df[select_col] > upper_bound) | (filtered_df[select_col] < lower_bound)]
-        st.write(f"🚨 Outliers count: {outliers.shape[0]}")
+        with st.expander(f"📊 Summary Statistics for {select_col.title()}"):
+            st.dataframe(filtered_df[select_col].describe().to_frame())
+        with st.expander(f"🔢 Top & Bottom 5 Values for {select_col.title()}"):
+            st.write("🔼 **Highest 5 Values:**")
+            st.write(filtered_df[select_col].nlargest(5))
+            st.write("🔽 **Lowest 5 Values:**")
+            st.write(filtered_df[select_col].nsmallest(5))
+        with st.expander(f"🚨 Outlier Detection for {select_col.title()}"):
+            q1 = filtered_df[select_col].quantile(0.25)
+            q3 = filtered_df[select_col].quantile(0.75)
+            iqr = q3 - q1
+            lower_bound = q1 - 1.5 * iqr
+            upper_bound = q3 + 1.5 * iqr
+            outliers = filtered_df[
+                (filtered_df[select_col] < lower_bound) | 
+                (filtered_df[select_col] > upper_bound)
+            ]
+            st.write(f"🚨 **Outliers count:** `{outliers.shape[0]}`")
+            # Optional: display the actual outlier values
+            if not outliers.empty:
+                st.dataframe(outliers[[select_col]])
+            else:
+                st.info("No outliers detected based on IQR method.")
     
     else:
         col1,col2=st.columns([2,2])

@@ -237,7 +237,7 @@ elif pages=="📊 Analysis Page":
             st.write(f"🚨 Outliers count: {outliers.shape[0]}")
 
     else:
-        col1,col2=st.columns(4)
+        col1,col2=st.columns([2,2])
         cat_df=filtered_df[select_col].value_counts().reset_index()
         cat_df.columns=[select_col, 'Count']
         col1.plotly_chart(px.bar(cat_df, x=select_col, y='Count', text_auto=True, title=f'Count of each {select_col}'.title()))

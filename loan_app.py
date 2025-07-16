@@ -14,13 +14,14 @@ def load_data():
     zip_path = os.path.join(current_dir, 'cleaned data.zip')
     csv_name = 'cleaned data.csv'
 
-# Extract CSV from zip if not already extracted
-with zipfile.ZipFile(zip_path, 'r') as zip_ref:
-    zip_ref.extract(csv_name, current_dir)
-    
-    file_path = os.path.join(current_dir, csv_name)
-        return pd.read_csv(file_path)
+    # Extract CSV from zip if not already extracted
+    with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+        zip_ref.extract(csv_name, current_dir)
 
+    file_path = os.path.join(current_dir, csv_name)
+    return pd.read_csv(file_path)
+
+# Load the DataFrame
 df = load_data()
 
 pages=st.sidebar.selectbox('Select Page', ["📊 Analysis Page", "🤖 ML Prediction"])

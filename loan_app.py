@@ -274,7 +274,7 @@ elif pages=="📊 Analysis Page":
             cat = cat.rename(columns={temp_names[0]: select_col, temp_names[1]: 'Status'})
         else:
             cat = series.reset_index().rename(columns={series.index.name: select_col})
-        col1.plotly_chart(px.bar(cat,x=select_col,y='percentage',color='Status',barmode='group',text_auto=True,
+        col1.plotly_chart(px.bar(cat,x=select_col,y='percentage',color='Status',barmode='overlay',text_auto=True,
                                 title=f'Loan Status Distribution by {select_col.title()}',
                                 labels={'percentage': 'Percentage (%)'},
                                 color_discrete_sequence=px.colors.qualitative.Dark2

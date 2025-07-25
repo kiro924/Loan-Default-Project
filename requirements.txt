@@ -1,4 +1,8 @@
-plotly
+pandas
+numpy
 scikit-learn
 xgboost
+streamlit
+plotly
 category_encoders
+joblib

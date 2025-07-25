@@ -311,10 +311,8 @@ else:
     y = df['Status']
     
     st.title('🤖 Loan Default Prediction Model')
-    
-    current_dir = os.getcwd()
-    file_path = os.path.join(current_dir, 'pipeline_pre.pkl')
-    pipeline_pre = joblib.load(file_path)
+
+    pipeline_pre = joblib.load('pipeline_pre.pkl')
     pipeline = joblib.load('Loan Prediction ML model')
     inputs = joblib.load('inputs')
     

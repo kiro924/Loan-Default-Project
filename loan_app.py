@@ -312,7 +312,7 @@ else:
     
     st.title('🤖 Loan Default Prediction Model')
 
-    pipeline_pre = joblib.load('pipeline_pre.pkl')
+    pipeline_pre = joblib.load('pipeline_Pre.pkl')
     pipeline = joblib.load('Loan Prediction ML model')
     inputs = joblib.load('inputs')
     
